@@ -12,6 +12,7 @@ COPY requirements.txt microblog.py Makefile .pylintrc pytest.ini test.sh ./
 ENV FLASK_APP microblog.py
 
 RUN <<-EOF
+    apk add --no-cache make gcc musl-dev
     chmod +x test.sh
     pip install -r requirements/test.txt
 EOF
