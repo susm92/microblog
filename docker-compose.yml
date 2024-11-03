@@ -1,0 +1,35 @@
+version: "3"
+services:
+    mysql:
+      image: "mysql:5.7"
+      container_name: "mysql"
+      environment:
+        - MYSQL_RANDOM_ROOT_PASSWORD=yes
+        - MYSQL_DATABASE=microblog
+        - MYSQL_USER=microblog
+        - MYSQL_PASSWORD=microblog
+      restart: always
+
+    prod:
+      image: "susm20/microblog:1.0.0-prod"
+      container_name: "microblog"
+      environment:
+        - SECRET_KEY=my_precious
+        - MYSQL_DATABASE=microblog
+        - DATABASE_URL=mysql+pymysql://microblog:microblog@dbserver/microblog
+      ports:
+        - "8000:5000"
+      links:
+          - mysql:dbserver
+      restart: always
+
+    test:
+      image: "susm20/microblog:1.0.0-test"
+      container_name: "test"
+      environment:
+        - DATABASE_URL=mysql+pymysql://microblog:microblog@dbserver/microblog
+      volumes:
+        - ./app:/home/microblog/app
+        - ./tests:/home/microblog/tests
+      links:
+        - mysql:dbserver
