@@ -3,4 +3,4 @@ feat(auth): add user login functionality
 Implemented the login API endpoint, which supports authentication using JWT tokens.
 The endpoint checks the user's credentials and returns a token for subsequent requests.
 
-Closes #42
+Closes #14
