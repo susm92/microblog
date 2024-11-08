@@ -1,0 +1,7 @@
+chore(ci): add GitHub Actions workflow for running tests
+
+Created a GitHub Actions workflow file (test.yml) to automatically run 'make test'
+on every push and pull request. This ensures that all commits are tested for 
+potential issues before merging.
+
+
