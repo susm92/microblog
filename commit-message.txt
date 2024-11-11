@@ -1,5 +1,4 @@
-fix(ci): install dependencies before running tests
+feature(ci): Add functionality to follow and unfollow users
 
-Installing python and flask and setting up venv to make the test flow work
-
+Added functionality to follow and unfollow users with associated tests
 
