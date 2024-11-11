@@ -1,4 +1,3 @@
-feature(ci): Add functionality to follow and unfollow users
+fix(ci): Fix pylint issues with tests
 
-Added functionality to follow and unfollow users with associated tests
-
+Fixed pylint issues for testing followers
