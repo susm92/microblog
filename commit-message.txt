@@ -1,5 +1,3 @@
-fix(ci): install dependencies before running tests
+fix(ci): Fix pylint issues with tests
 
-Installing python and flask and setting up venv to make the test flow work
-
-
+Fixed pylint issues for testing followers
