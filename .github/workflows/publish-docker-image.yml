@@ -2,10 +2,12 @@
 
 name: Docker Publish Image
 
-on:
-  workflow_call: {}
-  release:
-    types: [created]
+on: [push]
+
+#on:
+#  workflow_call: {}
+#  release:
+#    types: [created]
 
 jobs:
     test:
