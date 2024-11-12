@@ -9,7 +9,8 @@ on:
 #  pull_request:
 #    branches:
 #      - '**'  # Trigger on any pull request
-  workflow_call:
+  release:
+    types: [created]
   
   
 jobs:
