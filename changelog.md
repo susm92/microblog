@@ -24,7 +24,17 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v1.0.0] - 2024-11-07
+## [v11.0.0] - 2024-11-07
 
 ### Added
 - **commit-files**: Added commit-files to be able to write a commit-message using a template
+
+## [v11.2.0] - 2024-11-11
+
+### Added
+- **Followers**: Added functionality to follow users blogposts.
+
+## [v11.2.0] - 2024-11-12
+
+### Added
+- **DockerFiles**: Added docker implementation and yml for tests and to spin-up test environment.
