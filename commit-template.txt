@@ -1,5 +1,0 @@
-<type>(<scope>): <short summary>
-
-<body>
-
-<footer>
