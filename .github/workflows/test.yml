@@ -1,14 +1,7 @@
 name: Run Tests
 
 on:
-  push:
-  pull_request:
   workflow_call:
-    inputs:
-      python-version:
-        required: false
-        type: string
-        default: '3.8'
 
 jobs:
   test:

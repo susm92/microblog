@@ -1,13 +1,16 @@
 name: Docker Publish Image
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - '**'  # Trigger on push to any branch
+  pull_request:
+    branches:
+      - '**'  # Trigger on any pull request
 
 jobs:
   run-tests:
-    uses: ./.github/workflows/test.yml
-    with:
-      python-version: '3.8'
+    uses: ./.github/workflows/test.yml  # This will trigger `test.yml`
 
     build-docker-image:
         needs: [test]
