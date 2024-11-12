@@ -2,16 +2,14 @@
 
 name: Docker Publish Image
 
-on: [push]
-
-#on:
-#  workflow_call: {}
-#  release:
-#    types: [created]
+on:
+  workflow_call: {}
+  release:
+    types: [created]
 
 jobs:
     test:
-        uses: ./test.yml
+        uses: ./.github/workflows/test.yml
 
     build-docker-image:
         needs: [test]
