@@ -9,6 +9,8 @@ services:
         - MYSQL_USER=microblog
         - MYSQL_PASSWORD=microblog
       restart: always
+      volumes:
+        - ./data/mysql:/var/lib/mysql
 
     prod:
       image: "susm20/microblog:1.0.0-prod"
