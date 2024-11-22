@@ -1,2 +1,9 @@
 [local]
 localhost ansible_connection=local
+
+[appserver]
+appserver1.devopsgrupp1susm.tech ansible_user=deploy
+appserver2.devopsgrupp1susm.tech ansible_user=deploy
+
+[database]
+database.devopsgrupp1susm.tech ansible_user=deploy
