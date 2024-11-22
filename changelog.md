@@ -24,7 +24,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v12.1.0]
+## [v12.1.0] - 2024-11-22
 
 ### Added
 - **Ansible**: Fixed files for ansible setup environment setup and loadbalancer installation.
