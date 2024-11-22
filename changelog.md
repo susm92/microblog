@@ -24,22 +24,29 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v11.0.0] - 2024-11-07
+## [v12.1.0] - 2024-11-22
 
 ### Added
-- **commit-files**: Added commit-files to be able to write a commit-message using a template
+- **Ansible**: Fixed files for ansible setup environment setup and loadbalancer installation.
 
-## [v11.1.0] - 2024-11-11
+## [v11.3.0] - 2024-11-12
 
 ### Added
-- **Followers**: Added functionality to follow users blogposts.
+- **Release**: Added new release for project.
 
 ## [v11.2.0] - 2024-11-12
 
 ### Added
 - **DockerFiles**: Added docker implementation and yml for tests and to spin-up test environment.
 
-## [v11.3.0] - 2024-11-12
+
+## [v11.1.0] - 2024-11-11
 
 ### Added
-- **Release**: Added new release for project.
+- **Followers**: Added functionality to follow users blogposts.
+
+## [v11.0.0] - 2024-11-07
+
+### Added
+- **commit-files**: Added commit-files to be able to write a commit-message using a template
+
