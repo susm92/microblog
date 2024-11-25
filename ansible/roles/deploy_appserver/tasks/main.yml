@@ -1,0 +1,14 @@
+---
+- name: Start Microblog container
+  docker_container:
+    name: microblog
+    image: susm20/microblog:1.0.0-prod
+    env:
+      SECRET_KEY: "my_precious"
+      MYSQL_DATABASE: "microblog"
+      DATABASE_URL: "mysql+pymysql://microblog:microblog@{{ groups['database'][0] }}:3306/microblog"
+    ports: 
+      - "8000:5000"
+    restart_policy: always
+    published_ports:
+      - "8000:5000"
