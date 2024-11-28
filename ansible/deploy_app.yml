@@ -41,14 +41,24 @@
           - "8000:5000"
         state: started
 
-    - name: Application start delay
+    - name: Application delay
       wait_for:
         port: 8000
         delay: 10
 
-    - name: Verify that website is up
+    - name: Check that website is up
       uri:
         url: "http://{{ inventory_hostname }}:8000/"
         return_content: yes
         status_code: 200
       register: result
+
+    - name: Verify that microblog and github versions
+      fail:
+        msg: "Microblog and deployed version dont match"
+      when: app_version != github_tag
+
+    - name: If versions are a match
+      debug:
+        msg: "Microblog and deployed versions match"
+      when: app_version == github_tag
