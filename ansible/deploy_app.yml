@@ -3,7 +3,7 @@
   hosts: appserver
   serial: 1
   vars:
-    dockerhub_username: ${{ secrets.DOCKER_USERNAME }}
+    dockerhub_username: "${{ secrets.DOCKER_USERNAME }}"
     ansible_python_interpreter: /usr/bin/python3
   remote_user: deploy
   become: yes
