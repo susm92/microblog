@@ -130,5 +130,5 @@ def version():
     """
     Route for version of the app
     """
-    version_handler = os.environ.get('VERSION') or "No version found"
+    version_handler = os.environ.get('VERSION')
     return render_template('version.html', version=version_handler)
