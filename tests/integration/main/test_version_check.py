@@ -10,3 +10,4 @@ def test_version_control_route(client):
     response = client.get("/version")
     assert response.status_code == 200
     assert b"Current version!" in response.data
+    
