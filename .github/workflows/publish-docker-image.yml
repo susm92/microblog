@@ -16,8 +16,8 @@ on:
   
   
 jobs:
-  #run-tests:
-    #uses: ./.github/workflows/test.yml  # This will trigger `test.yml`
+  run-tests:
+    uses: ./.github/workflows/test.yml  # This will trigger `test.yml`
 
   build-docker-image:
       #needs: run-tests
