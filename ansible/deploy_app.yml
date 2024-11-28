@@ -16,6 +16,16 @@
         name: "{{ dockerhub_username }}/microblog:{{ github_tag }}-prod"
         source: pull
 
+    - name: Get tags
+      uri: 
+        url: "https://api.github.com/repos/susm92/microblog/tags"
+        return_content: true
+      register: tags
+
+    - name: Set latest tag
+      set_fact:
+        app_version: "{{ tags.json[0].name }}"
+
     - name: Restart Microblog
       docker_container:
         name: microblog
@@ -23,6 +33,7 @@
         env:
           SECRET_KEY: "my_precious"
           DATABASE_URL: "mysql+pymysql://microblog:microblog@{{ groups['database'][0] }}:3306/microblog"
+          VERSION: "{{ app_version }}"
         ports:
           - "8000:5000"
         restart_policy: always
