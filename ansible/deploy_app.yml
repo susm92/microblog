@@ -9,7 +9,7 @@
   become: yes
   become_method: sudo
   roles:
-    - docker-install
+    - docker_install
   tasks:
     - name: Pull the latest Microblog image based on GitHub release tag
       docker_image:
