@@ -24,6 +24,11 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v12.2.3] - 2024-11-28
+
+### Added
+- **Ansible/ Routes**: Finished CD flow for ansible and connection between github and azure. Added site for version control and added tests to verify that /version is up and running, tests can be found in playbook and as an integration test.
+
 ## [v12.1.0] - 2024-11-22
 
 ### Added
