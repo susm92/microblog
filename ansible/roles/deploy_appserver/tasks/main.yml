@@ -12,7 +12,7 @@
 - name: Start Microblog container
   docker_container:
     name: microblog
-    image: susm20/microblog:1.0.0-prod
+    image: susm20/microblog:{{ github_tag }}-prod
     env:
       SECRET_KEY: "my_precious"
       MYSQL_DATABASE: "microblog"
