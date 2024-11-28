@@ -1,10 +1,12 @@
 """
 Contains routes for main purpose of app
 """
+
+import os
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, current_app
 from flask_login import current_user, login_required
-from app import db
+from app import db, version
 from app.main.forms import EditProfileForm, PostForm
 from app.models import User, Post
 from app.main import bp
@@ -122,3 +124,11 @@ def unfollow(username):
     db.session.commit()
     flash(f'You are not following {username}.')
     return redirect(url_for('main.user', username=username))
+
+@bp.route('/version')
+def version():
+    """
+    Route for version of the app
+    """
+    version_handler = os.environ.get('VERSION')
+    return render_template('version.html', version=version_handler)
