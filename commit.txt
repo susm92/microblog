@@ -1,3 +1,4 @@
-fix(ci): Fix pylint issues with tests
+Add: Add key
 
-Fixed pylint issues for testing followers
+Added public key
+Fixed Linters
