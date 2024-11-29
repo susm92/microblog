@@ -48,12 +48,12 @@
 
     - name: Check that website is up
       uri:
-        url: "http://{{ inventory_hostname }}:8000/"
+        url: "https://{{ inventory_hostname }}:8000/"
         return_content: yes
         status_code: 200
       register: result
 
-    - name: Verify that microblog and github versions
+    - name: Verify microblog and github versions
       fail:
         msg: "Microblog and deployed version dont match"
       when: app_version != github_tag
