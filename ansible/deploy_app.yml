@@ -48,7 +48,7 @@
 
     - name: Check that website is up
       uri:
-        url: "https://{{ inventory_hostname }}:8000/"
+        url: "http://{{ inventory_hostname }}:8000/"
         return_content: yes
         status_code: 200
       register: result
