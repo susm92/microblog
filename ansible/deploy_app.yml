@@ -57,8 +57,3 @@
       fail:
         msg: "Microblog and deployed version dont match"
       when: app_version != github_tag
-
-    - name: If versions are a match
-      debug:
-        msg: "Microblog and deployed versions match"
-      when: app_version == github_tag
