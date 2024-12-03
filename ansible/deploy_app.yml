@@ -60,5 +60,5 @@
 
     - name: Verify that base image is same as OS image
       debug:
-        msg: "Base image is same as OS"
+        msg: "Base image is same as OS image"
       when: app_version == github_tag
