@@ -215,3 +215,21 @@ install-test:
 install-deploy:
 	${pip} install -r requirements/deploy.txt
 	cd ansible && ansible-galaxy install -r requirements.yml
+
+# target: bandit-test				  - Run bandit tests
+.PHONY: bandit-test
+bandit-test:
+	bandit -r app
+
+# target; dockle-test				  - Run dockle tests
+.PHONY: dockle-test
+dockle-test:
+	docker build -f docker/Dockerfile_prod -t microblog:$(TAG) .
+	dockle --ignore DKL-LI-003 microblog:$(TAG)
+
+# target: trivy-test				  - Run trivy tests
+.PHONY: trivy-test
+trivy-test:
+	docker build -f docker/Dockerfile_prod -t microblog:$(TAG) .
+	trivy image microblog:$(TAG) --scanners vuln,secret,config
+	trivy fs --scanners vuln,secret,config .
