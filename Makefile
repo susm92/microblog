@@ -232,4 +232,4 @@ dockle-test:
 trivy-test:
 	docker build -f docker/Dockerfile_prod -t microblog:$(TAG) .
 	trivy image microblog:$(TAG) --scanners vuln,secret,misconfig --ignorefile .trivyignore
-	trivy fs --scanners vuln,secret,config --skip-dirs "./.venv ./" --ignorefile .trivyignore
+	trivy fs --scanners vuln,secret,config --skip-dirs "./.venv" ./ --ignorefile .trivyignore
