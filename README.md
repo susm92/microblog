@@ -1,108 +1,150 @@
-Microblog
-===================
+<div align="center">
+<img src="docs/imgs/logo.png" width="200">
 
-[![Join the chat at https://gitter.im/dbwebb-se/devops](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dbwebb-se/devops?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GitHub Release][release-img]][release]
+[![Test][test-img]][test]
+[![Go Report Card][go-report-img]][go-report]
+[![License: Apache-2.0][license-img]][license]
+[![GitHub Downloads][github-downloads-img]][release]
+![Docker Pulls][docker-pulls]
 
-Course material for a devops course, aimed at a Swedish course in computer science on University level new to devops. The students are to further develop this application and integreate it with new tools.
+[📖 Documentation][docs]
+</div>
 
-Released as part of a University course: https://dbwebb.se/kurser/devops
+Trivy ([pronunciation][pronunciation]) is a comprehensive and versatile security scanner.
+Trivy has *scanners* that look for security issues, and *targets* where it can find those issues.
 
-The application used in this course is based on [The flask mega tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world).
+Targets (what Trivy can scan):
 
+- Container Image
+- Filesystem
+- Git Repository (remote)
+- Virtual Machine Image
+- Kubernetes
+- AWS
 
+Scanners (what Trivy can find there):
 
+- OS packages and software dependencies in use (SBOM)
+- Known vulnerabilities (CVEs)
+- IaC issues and misconfigurations
+- Sensitive information and secrets
+- Software licenses
 
-Dev environment
-------------------
+Trivy supports most popular programming languages, operating systems, and platforms. For a complete list, see the [Scanning Coverage] page.
 
-Here is how you setup the development environment and start the application.
+To learn more, go to the [Trivy homepage][homepage] for feature highlights, or to the [Documentation site][docs] for detailed information.
 
+## Quick Start
 
+### Get Trivy
 
-### Packages
+Trivy is available in most common distribution channels. The full list of installation options is available in the [Installation] page. Here are a few popular examples:
 
-Create a virtual environment and install packages:
-```
-python3 -m venv venv
-source venv/bin/activate
-make install-dev
-```
+- `brew install trivy`
+- `docker run aquasec/trivy`
+- Download binary from <https://github.com/aquasecurity/trivy/releases/latest/>
+- See [Installation] for more
 
-If you are on Windows and Cygwin you will probably have troubles installing the pip package `cryptography`. Common errors are missing `python.h`, `gcc`, `cffi` and `openssl`. 
+Trivy is integrated with many popular platforms and applications. The complete list of integrations is available in the [Ecosystem] page. Here are a few popular examples:
 
+- [GitHub Actions](https://github.com/aquasecurity/trivy-action)
+- [Kubernetes operator](https://github.com/aquasecurity/trivy-operator)
+- [VS Code plugin](https://github.com/aquasecurity/trivy-vscode-extension)
+- See [Ecosystem] for more
 
-### Database
+### Canary builds
+There are canary builds ([Docker Hub](https://hub.docker.com/r/aquasec/trivy/tags?page=1&name=canary), [GitHub](https://github.com/aquasecurity/trivy/pkgs/container/trivy/75776514?tag=canary), [ECR](https://gallery.ecr.aws/aquasecurity/trivy#canary) images and [binaries](https://github.com/aquasecurity/trivy/actions/workflows/canary.yaml)) as generated every push to main branch.
 
-Setup SQLite database if `migrations` folder already exist:
-```
-flask db upgrade
-```
+Please be aware: canary builds might have critical bugs, it's not recommended for use in production.
 
-If you have upgraded the code for any SQLAlchemy models:
-```
-flask db migrate -m '<message>'
-flask db upgrade
-```
+### General usage
 
-You probably won't need to do this. But if you need to recreate `app.db` and migrations folder:
-```
-flask db init
-flask db migrate -m '<message>'
-flask db upgrade
-```
-
-If you have the wrong migrations version in the database when you want to upgrade it you can change it with:
-```
-flask db stamp head
-flask db upgrade
-```
-
-
-
-### Test application
-
-There are several make commands for testing the application. Use `make help` to see which. To run all tests and validation use:
-```
-make test
+```bash
+trivy <target> [--scanners <scanner1,scanner2>] <subject>
 ```
 
+Examples:
 
-
-### Run application
-
-Start byt setting the FLASK_APP and FLASK_ENV env vars:
-```
-export FLASK_APP=microblog.py
-export FLASK_ENV=development
-```
-Change to use the DevConfig in `microblog.py`, uncomment `# from app.config import DevConfig` and `# app = create_app(DevConfig)` (comment `app = create_app()`).
-
-Start the app with the following command and go to `localhost:5000` in your browser.
-```
-flask run
+```bash
+trivy image python:3.4-alpine
 ```
 
+<details>
+<summary>Result</summary>
 
+https://user-images.githubusercontent.com/1161307/171013513-95f18734-233d-45d3-aaf5-d6aec687db0e.mov
 
-Production environment
-------------------
+</details>
 
-Follow the scripts in `scripts/` or [Driftsätta en flask app](https://dbwebb.se/kunskap/driftsatta-en-flask-app).
+```bash
+trivy fs --scanners vuln,secret,misconfig myproject/
+```
 
+<details>
+<summary>Result</summary>
 
+https://user-images.githubusercontent.com/1161307/171013917-b1f37810-f434-465c-b01a-22de036bd9b3.mov
 
-License
--------------------
+</details>
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+```bash
+trivy k8s --report summary cluster
+```
 
+<details>
+<summary>Result</summary>
 
+![k8s summary](docs/imgs/trivy-k8s.png)
 
-Acknowledgement
--------------------
+</details>
 
-This is a co-effort of several people using freely available documentation and tools from the open source community.
+## FAQ
 
-For contributors, see commit history and issues.
+### How to pronounce the name "Trivy"?
 
-Feel free to help building up the repository with more content suited for training and education.
+`tri` is pronounced like **tri**gger, `vy` is pronounced like en**vy**.
+
+## Want more? Check out Aqua
+
+If you liked Trivy, you will love Aqua which builds on top of Trivy to provide even more enhanced capabilities for a complete security management offering.  
+You can find a high level comparison table specific to Trivy users [here](https://github.com/aquasecurity/resources/blob/main/trivy-aqua.md).  
+In addition check out the <https://aquasec.com> website for more information about our products and services.
+If you'd like to contact Aqua or request a demo, please use this form: <https://www.aquasec.com/demo>
+
+## Community
+
+Trivy is an [Aqua Security][aquasec] open source project.  
+Learn about our open source work and portfolio [here][oss].  
+Contact us about any matter by opening a GitHub Discussion [here][discussions]
+Join our [Slack community][slack] to stay up to date with community efforts.
+
+Please ensure to abide by our [Code of Conduct][code-of-conduct] during all interactions.
+
+[test]: https://github.com/aquasecurity/trivy/actions/workflows/test.yaml
+[test-img]: https://github.com/aquasecurity/trivy/actions/workflows/test.yaml/badge.svg
+[go-report]: https://goreportcard.com/report/github.com/aquasecurity/trivy
+[go-report-img]: https://goreportcard.com/badge/github.com/aquasecurity/trivy
+[release]: https://github.com/aquasecurity/trivy/releases
+[release-img]: https://img.shields.io/github/release/aquasecurity/trivy.svg?logo=github
+[github-downloads-img]: https://img.shields.io/github/downloads/aquasecurity/trivy/total?logo=github
+[docker-pulls]: https://img.shields.io/docker/pulls/aquasec/trivy?logo=docker&label=docker%20pulls%20%2F%20trivy
+[license]: https://github.com/aquasecurity/trivy/blob/main/LICENSE
+[license-img]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
+[homepage]: https://trivy.dev
+[docs]: https://aquasecurity.github.io/trivy
+[pronunciation]: #how-to-pronounce-the-name-trivy
+[slack]: https://slack.aquasec.com
+[code-of-conduct]: https://github.com/aquasecurity/community/blob/main/CODE_OF_CONDUCT.md
+
+[Installation]:https://aquasecurity.github.io/trivy/latest/getting-started/installation/
+[Ecosystem]: https://aquasecurity.github.io/trivy/latest/ecosystem/
+[Scanning Coverage]: https://aquasecurity.github.io/trivy/latest/docs/coverage/
+
+[alpine]: https://ariadne.space/2021/06/08/the-vulnerability-remediation-lifecycle-of-alpine-containers/
+[rego]: https://www.openpolicyagent.org/docs/latest/#rego
+[sigstore]: https://www.sigstore.dev/
+
+[aquasec]: https://aquasec.com
+[oss]: https://www.aquasec.com/products/open-source-projects/
+[discussions]: https://github.com/aquasecurity/trivy/discussions

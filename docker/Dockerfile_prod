@@ -9,13 +9,15 @@ COPY migrations migrations
 COPY requirements requirements
 COPY requirements.txt microblog.py docker/boot.sh ./
 
-ENV FLASK_APP microblog.py
+ENV FLASK_APP=microblog.py
 
 RUN <<-EOF
     python -m venv .venv
     .venv/bin/pip3 install -r requirements.txt
     chmod +x boot.sh
     chown -R microblog:microblog ./
+    apk upgrade --no-cache libcrypto3
+    apk upgrade --no-cache libexpat
 EOF
 
 USER microblog
