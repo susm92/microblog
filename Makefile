@@ -231,5 +231,5 @@ dockle-test:
 .PHONY: trivy-test
 trivy-test:
 	docker build -f docker/Dockerfile_prod -t microblog:$(TAG) .
-	trivy image microblog:$(TAG) --scanners vuln,secret,misconfig
-	trivy fs --scanners vuln,secret,config --skip-dirs "./.venv ./"
+	trivy image microblog:$(TAG) --scanners vuln,secret,misconfig --ignorefile .trivyignore
+	trivy fs --scanners vuln,secret,config --skip-dirs "./.venv ./" --ignorefile .trivyignore
