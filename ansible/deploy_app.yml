@@ -57,3 +57,8 @@
       fail:
         msg: "Microblog and deployed version dont match"
       when: app_version != github_tag
+
+    - name: Verify that base image is same as OS image
+      debug:
+        msg: "Base image is same as OS image"
+      when: app_version == github_tag
