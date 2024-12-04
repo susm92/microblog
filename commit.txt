@@ -1,3 +1,7 @@
-Fix: Fix trivy packages
+Fix: Fix for trivy monitoring
 
-Fixed trivy packages that caused issues
+Kommenterat ut fel på verioner för Flask, Werkzeug, pip och setuptool.
+
+Hittat att det inte går att uppdatera följande paket utan att vårt program kraschat när det körs i CI-flöde.
+Tagit med samtliga CVE i .trivyignore filen.
+
