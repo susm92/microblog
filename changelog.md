@@ -24,6 +24,11 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v13.0.1] - 2024-12-02
+
+### Added
+- **Workflow/ Security**: Added security.yml for the CI flow and security aspects of the application. Also re-done some work for ansible code, added more seucrity features for example, SSH and access to servers.
+
 ## [v12.2.3] - 2024-11-28
 
 ### Added
