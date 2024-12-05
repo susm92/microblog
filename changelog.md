@@ -24,6 +24,11 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v13.0.2] - 2024-12-04
+
+### Changed/ Fixed
+- **Security/ CI-flow**: Reverted changes for packages updated in application because of crash at build, dependencies not working for other packages.
+
 ## [v13.0.1] - 2024-12-02
 
 ### Added
