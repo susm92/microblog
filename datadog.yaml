@@ -1,0 +1,11 @@
+# Datadog set up
+api_key: ${DATADOG_API_KEY}
+site: datadoghq.com
+
+
+log_level: INFO
+tags:
+  - env:production
+  - role:microblog
+
+check_runners: 5

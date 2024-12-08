@@ -1,7 +1,4 @@
-Fix: Fix for trivy monitoring
+Feature: Teknisk studie / Datadog
 
-Kommenterat ut fel på verioner för Flask, Werkzeug, pip och setuptool.
-
-Hittat att det inte går att uppdatera följande paket utan att vårt program kraschat när det körs i CI-flöde.
-Tagit med samtliga CVE i .trivyignore filen.
+Lagt till Teknisk studie / Datadog
 

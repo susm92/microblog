@@ -24,6 +24,11 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v13.1.2] - 2024-12-08
+
+### Implemented / Added
+- **Technical Study / Datadog**: Added files for Technical study / Datadog 
+
 ## [v13.0.2] - 2024-12-04
 
 ### Changed/ Fixed
