@@ -1,0 +1,34 @@
+global:
+  scrape_interval: 30s
+
+scrape_configs:
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node-exporter:9100']
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['0.0.0.0:9090']
+  - job_name: "flask"
+    static_configs:
+      - targets: ['{{ groups["appserver1"][0] }}:8000', '{{ groups["appserver2"][0] }}:8000']
+      labels:
+        group: flask
+  - job_name: "nginx"
+    metrics_path: /prometheus
+    static_configs:
+      - targets: ['{{ groups["loadbalancer"][0] }}:9113']
+  - job_name: "sql-node"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['{{ groups["database"] }}:9100']
+  - job_name: "mysql"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['{{ groups["database"] }}:9104']
+
+altering:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+rule_files:
+  - rules.yml

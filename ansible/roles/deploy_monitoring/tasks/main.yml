@@ -1,0 +1,76 @@
+---
+- name: move docker-compose to the server
+  ansible.builtin.template:
+    src: files/docker-compose.yml
+    dest: /home/deploy/docker-compose.yml
+
+- name: move prometheus.yml to the server
+  ansible.builtin.template:
+    src: files/prometheus.yml
+    dest: /home/deploy/prometheus.yml
+
+- name: move rules.yml to the server
+  ansible.builtin.template:
+    src: files/rules.yml
+    dest: /home/deploy/rules.yml
+
+- name: move alertmanager.yml to the server
+  ansible.builtin.template:
+    src: files/alertmanager.yml
+    dest: /home/deploy/alertmanager.yml
+
+- name: move grafana.ini to the server
+  ansible.builtin.template:
+    src: files/grafana.ini
+    dest: /home/deploy/grafana.ini
+
+- name: move flask.yml to the server
+  copy:
+    src: flask.yml
+    dest: /home/deploy/flaskdash.yml
+
+- name: start the monitoring stack
+  ansible.builtin.command:
+    cmd: docker-compose.yml up -d
+    chdir: /home/deploy
+  become: yes
+
+- name: wait for the monitoring stack to start
+  pause:
+    seconds: 60
+
+- name: Prometheus data source
+  community.grafana.grafana_dashboard:
+    name: Prometheus
+    url: http://prometheus:9090
+    ds_type: prometheus
+    ds_url: http://prometheus:9090
+    grafana_user: admin
+    grafana_password: admin
+    state: present
+
+- name: Flask dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: http://localhost:3000
+    grafana_user: admin
+    grafana_password: admin
+    path: /home/deploy/flaskdash.yml
+    overwrite: true
+    state: present
+
+- name: Node exporter Grafana
+  community.grafana.grafana_dashboard:
+    grafana_url: http://localhost:3000
+    grafana_user: admin
+    grafana_password: admin
+    dashboard_id: 1860
+    dashboard_revision: 22
+
+- name: Nginx dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: http://localhost:3000
+    grafana_user: admin
+    grafana_password: admin
+    path: /home/deploy/nginxdash.json
+    overwrite: true
+    state: present
