@@ -23,3 +23,20 @@
     restart_policy: always
     published_ports:
       - "8000:5000"
+
+- name: Node Explorer
+  docker_container:
+    name: node-exporter
+    image: prom/node-exporter:v1.2.2
+    restart_policy: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - "9100:9100"
