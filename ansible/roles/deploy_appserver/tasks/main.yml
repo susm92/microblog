@@ -28,8 +28,7 @@
   docker_container:
     name: node-exporter
     image: prom/node-exporter:v1.2.2
-    container_name: node-exporter
-    restart: unless-stopped
+    restart_policy: unless-stopped
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro

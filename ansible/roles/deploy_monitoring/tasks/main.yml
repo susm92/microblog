@@ -1,4 +1,9 @@
 ---
+- name: docker-compose installation
+  ansible.builtin.command: 
+    cmd: sudo apt-get install -y docker-compose
+  become: yes
+
 - name: move docker-compose to the server
   ansible.builtin.template:
     src: files/docker-compose.yml
@@ -24,15 +29,20 @@
     src: files/grafana.ini
     dest: /home/deploy/grafana.ini
 
-- name: move flask.yml to the server
+- name: move flask.json to the server
   copy:
-    src: flask.yml
-    dest: /home/deploy/flaskdash.yml
+    src: flaskdash.json
+    dest: /home/deploy/flaskdash.json
+
+- name: move nginx.json to the server
+  copy:
+    src: nginxdash.json
+    dest: /home/deploy/nginxdash.json
 
 - name: start the monitoring stack
   ansible.builtin.command:
-    cmd: docker-compose.yml up -d
-    chdir: /home/deploy
+    cmd: docker-compose up -d
+    chdir: /home/deploy/
   become: yes
 
 - name: wait for the monitoring stack to start
@@ -40,9 +50,9 @@
     seconds: 60
 
 - name: Prometheus data source
-  community.grafana.grafana_dashboard:
+  community.grafana.grafana_datasource:
     name: Prometheus
-    url: http://prometheus:9090
+    url: http://0.0.0.0:3000
     ds_type: prometheus
     ds_url: http://prometheus:9090
     grafana_user: admin
@@ -51,16 +61,16 @@
 
 - name: Flask dashboard
   community.grafana.grafana_dashboard:
-    grafana_url: http://localhost:3000
+    grafana_url: http://0.0.0.0:3000
     grafana_user: admin
     grafana_password: admin
-    path: /home/deploy/flaskdash.yml
+    path: /home/deploy/flaskdash.json
     overwrite: true
     state: present
 
 - name: Node exporter Grafana
   community.grafana.grafana_dashboard:
-    grafana_url: http://localhost:3000
+    grafana_url: http://0.0.0.0:3000
     grafana_user: admin
     grafana_password: admin
     dashboard_id: 1860
@@ -68,7 +78,7 @@
 
 - name: Nginx dashboard
   community.grafana.grafana_dashboard:
-    grafana_url: http://localhost:3000
+    grafana_url: http://0.0.0.0:3000
     grafana_user: admin
     grafana_password: admin
     path: /home/deploy/nginxdash.json
