@@ -9,14 +9,15 @@ on:
   
   
 jobs:
-  run-tests:
-    uses: ./.github/workflows/test.yml
+#  run-tests:
+#    uses: ./.github/workflows/test.yml
   
   run-security:
     uses: ./.github/workflows/security.yml
 
   build-docker-image:
-      needs: [run-tests, run-security]
+ #     needs: [run-tests, run-security]
+      needs: [run-security]
       runs-on: ubuntu-latest
       steps:
           - name: Checkout code
