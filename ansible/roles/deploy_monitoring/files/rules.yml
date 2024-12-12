@@ -6,3 +6,11 @@ groups:
         for: 10s
         labels:
           severity: minor
+  
+  - name: Route for alarm not found
+    rules:
+      - alert: Alert for faulty route
+        expr: (sum(flask_http_request_duration_seconds_count{instance="flask", method="GET", path="/alarm", status="404"}) % 2) == 1
+        for: 10s
+        labels:
+          severity: critical
