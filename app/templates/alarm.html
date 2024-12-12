@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<h1>Trigger/ Clear Alarm</h1>
+
+<h1>Prometheus Alarm Control</h1>
+    <p>This application has a controllable alarm. Use the buttons below:</p>
+
+    <button onclick="window.location.href='/trigger_alarm'">Trigger Alarm</button>
+    <br><br>
+
+    <button onclick="window.location.href='/clear_alarm'">Clear Alarm</button>
+    <br><br>
+    
+    <p>Current Alarm Status: {{ status }}</p>
+
+{% endblock %}

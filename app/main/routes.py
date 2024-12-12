@@ -4,13 +4,15 @@ Contains routes for main purpose of app
 
 import os
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request, current_app
+from flask import render_template, flash, redirect, url_for, request, current_app, Response
 from flask_login import current_user, login_required
 from app import db
 from app.main.forms import EditProfileForm, PostForm
 from app.models import User, Post
 from app.main import bp
 
+# global variable to keep track of alarm status
+alarm_active = False
 
 
 @bp.before_request
@@ -132,3 +134,26 @@ def version():
     """
     version_handler = os.environ.get('VERSION')
     return render_template('version.html', version=version_handler)
+
+@bp.route("/alarm")
+def alarm():
+    status = "Active" if alarm_active else "Cleared"
+    return render_template('alarm.html', status=status)
+
+@bp.route("/alarmtest")
+def alarmtest():
+    if alarm_active:
+        return Response("Alarm endpoint active", status=404)
+    return Response("Alarm endpoint active", status=200)
+
+@bp.route("/clear_alarm")
+def clear_alarm():
+    global alarm_active
+    alarm_active = False
+    return "Alarm cleared. <a href='/alarm'>Go Back</a>"
+
+@bp.route("/trigger_alarm")
+def trigger_alarm():
+    global alarm_active
+    alarm_active = True
+    return "Alarm triggered. <a href='/alarm'>Go Back</a>"
