@@ -2,7 +2,7 @@ groups:
   - name: More get request than 20
     rules:
       - alert: More than 20 requests
-        expr: flask_http_request_total{method="GET", status="200"} > 20 and flask_http_request_total{method="GET", status="200"} < 25
+        expr: flask_http_request_total{method="GET", status="200"} > 20 and flask_http_request_total{method="GET", status="200"} < 50
         for: 10s
         labels:
           severity: minor
@@ -10,7 +10,7 @@ groups:
   - name: Route for alarm not found
     rules:
       - alert: Alert for faulty route
-        expr: (sum(flask_http_request_duration_seconds_count{instance="flask", method="GET", path="/alarm", status="404"}) % 2) == 1
-        for: 10s
+        expr: sum(flask_http_request_duration_seconds_count{instance="flask", method="GET", path="/alarmtest", status="404"}) > 0
+        for: 1m
         labels:
           severity: critical
