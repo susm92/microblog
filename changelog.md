@@ -23,6 +23,15 @@ All notable changes to this project will be documented in this file.
 - Vulnerabilities or security-related changes.
 
 ---
+## [v14.1.0] - 2024-12-13
+
+### Changed/ Fixed
+- **Monitoring**: Straightened out bugs and other issues with monitoring, also added alarm site to test present alarms. 
+
+## [v14.0.0] - 2024-12-10
+
+### Implemented / Added
+- **Monitoring**: Added monitoring through prometheus & grafana to our project. 
 
 ## [v13.1.2] - 2024-12-08
 
