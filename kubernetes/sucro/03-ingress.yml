@@ -2,9 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kuard
+  name: microblog
   annotations:
     # cert-manager.io/issuer: "letsencrypt-staging"
+    cert-manager.io/issuer: "letsencrypt-prod"
 
 spec:
   ingressClassName: nginx # kopplar vår ingress till den installerade nginx-ingress
@@ -13,13 +14,13 @@ spec:
     - devopsgrupp1susm.tech # här sätter vi in vårt domännamn
     secretName: demo-tls # det kommer senare skapas en secret med detta namnet som innehåller certificatet för vårt domännamn.
   rules:
-  - host: <ditt domännamn>
+  - host: devopsgrupp1susm.tech
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: kuard
+            name: microblog
             port:
               number: 80
